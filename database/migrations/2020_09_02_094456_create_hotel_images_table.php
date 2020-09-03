@@ -15,7 +15,12 @@ class CreateHotelImagesTable extends Migration
     {
         Schema::create('hotel_images', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('imageurl');
+            $table->unsignedBigInteger('hotel_id');
             $table->timestamps();
+
+
+            $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
         });
     }
 

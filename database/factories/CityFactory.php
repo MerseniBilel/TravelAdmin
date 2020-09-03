@@ -7,6 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(City::class, function (Faker $faker) {
     return [
-        // i need to add a table caled CITYIMAGES that contain all the images related to this city
+        'name' => $faker->name,
+        'description' => $faker->text($maxNbChars = 191),
+        'created_at' => now(),
+        'updated_at' => now(),
     ];
 });

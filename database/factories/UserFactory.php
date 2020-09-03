@@ -20,9 +20,9 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'lastname' => $faker->lastName,
-        'address' => $fakere->address,
-        'phoneNumber' => $faker->mobileNumber,
-        'profilepic' => 'https://picsum.photos/200/300',
+        'address' => $faker->address,
+        'phoneNumber' => $faker->phoneNumber,
+        'profilepic' => $faker->imageUrl($width = 500, $height = 500),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

@@ -2,12 +2,17 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\City;
 use App\Activity;
 use Faker\Generator as Faker;
 
 $factory->define(Activity::class, function (Faker $faker) {
     return [
-       // i need to add activitie icon.svg that describe the activity
-       // i will need the icon in Flutter as a button to list all the cities and hotels that containe this activity 
+        'name' =>$faker->name,
+        'description' => $faker->text,
+        'icon' => $faker->imageUrl($width = 32, $height = 32),
+        'city_id' => City::get('id')->random(),
+        'created_at' => now(),
+        'updated_at' => now(),
     ];
 });
