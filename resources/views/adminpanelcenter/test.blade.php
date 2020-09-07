@@ -49,7 +49,7 @@
 										<div class="row">
 											<div class="col-5">
 												<div class="icon-big text-center">
-													<i class="la la-newspaper-o"></i>
+													<i class="la la-hotel"></i>
 												</div>
 											</div>
 											<div class="col-7 d-flex align-items-center">
