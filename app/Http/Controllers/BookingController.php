@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\City;
+use App\Booking;
 use Illuminate\Http\Request;
 use DB;
-class CityController extends Controller
+
+
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     /**
@@ -41,10 +43,10 @@ class CityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\City  $city
+     * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(City $city)
+    public function show(Booking $booking)
     {
         //
     }
@@ -52,10 +54,10 @@ class CityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\City  $city
+     * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit(City $city)
+    public function edit(Booking $booking)
     {
         //
     }
@@ -64,10 +66,10 @@ class CityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\City  $city
+     * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(Request $request, Booking $booking)
     {
         //
     }
@@ -75,16 +77,26 @@ class CityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\City  $city
+     * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
+    public function destroy(Booking $booking)
     {
         //
     }
 
+    public function getBookingNumber(){
 
-    public function getcityNumber(){
-        return DB::table('cities')->count(); 
+        return DB::table('Bookings')->count(); 
+    }   
+
+
+
+
+    public function getGoogleChartInfo(){
+        $data =  DB::select('select date_format(created_at,"%M - %Y") as `month`, count(distinct created_at) as bookingsNumber from bookings group by `month` order by bookingsNumber desc');
+        return $data;
     }
 }
+
+//select created_at as month, count(distinct created_at) as bookingNumber from bookings group by month ORDER BY bookingNumber DESC

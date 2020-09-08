@@ -12,6 +12,6 @@ class Hotel_imagesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(HotelImage::class, 50)->create();
+        factory(HotelImage::class, 88)->create();
     }
 }

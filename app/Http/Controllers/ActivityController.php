@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use Illuminate\Http\Request;
-
+use DB;
 class ActivityController extends Controller
 {
     /**
@@ -81,5 +81,11 @@ class ActivityController extends Controller
     public function destroy(Activity $activity)
     {
         //
+    }
+
+
+
+    public function getActivityNumber(){
+        return DB::table('activities')->count(); 
     }
 }

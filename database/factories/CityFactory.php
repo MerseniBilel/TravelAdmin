@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(City::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->country,
         'description' => $faker->text($maxNbChars = 191),
         'created_at' => now(),
         'updated_at' => now(),

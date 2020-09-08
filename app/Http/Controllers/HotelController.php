@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hotel;
 use Illuminate\Http\Request;
-
+use DB;
 class HotelController extends Controller
 {
     /**
@@ -81,5 +81,10 @@ class HotelController extends Controller
     public function destroy(Hotel $hotel)
     {
         //
+    }
+
+
+    public function getHotelNumber(){
+        return DB::table('hotels')->count(); 
     }
 }
