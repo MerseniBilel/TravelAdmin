@@ -18,7 +18,7 @@
                   <div class="row">
                     <div class="col-5">
                       <div class="icon-big text-center">
-                        <i class="la la-users"></i>
+                        <i class="fas fa-user-friends"></i>
                       </div>
                     </div>
 
@@ -46,7 +46,7 @@
                   <div class="row">
                     <div class="col-5">
                       <div class="icon-big text-center">
-                        <i class="la la-hotel"></i>
+                        <i class="fas fa-hotel"></i>
                       </div>
                     </div>
 
@@ -76,7 +76,7 @@
                   <div class="row">
                     <div class="col-5">
                       <div class="icon-big text-center">
-                        <i class="la la-building"></i>
+                        <i class="fas fa-city"></i>
                       </div>
                     </div>
 
@@ -100,7 +100,7 @@
                   <div class="row">
                     <div class="col-5">
                       <div class="icon-big text-center">
-                        <i class="la la-calendar-o"></i>
+                        <i class="fas fa-skating"></i>
                       </div>
                     </div>
 
@@ -117,7 +117,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
               <div class="card">
                 <div class="card-header">
                   <div class="d-flex justify-content-between">
@@ -127,24 +127,59 @@
                     <div class="p-2 bd-highlight"><h3 ><i class="la la-download"></i></h3></div>
                   </div>
                 <div class="card-body">
-                  <div id="chart_div" style="width: 800px; height: 650px;"></div>
+                  <div id="chart_div" style="width: 100%; height: 650px;"></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-md-6">
-            <h1>to do </h1>
-            <h2>nkamel map mta3 google chart</h2>
-            <h2>ne7seb el ballance</h2>
-            <h2>nadhef tamplate</h2>
-            <h2>na3mel crud mta3 city</h2>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <p class="fw-bold">My Balance</p>
+               
+                <h4 class="mt-2">$ {{$ourbalance[0]->balance}}</h4>
+                <p class="card-category">Table contains the last Booking requests</p>
+                <table class="table table table-head-bg-primary mt-4">
+                  <thead>
+                    <tr>
+                    <th scope="col">id</th>
+                      <th scope="col">requester</th>
+                      <th scope="col">price</th>
+                      <th scope="col">Booked at</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    @foreach ($allbookings as $item)
+                    <tr>
+                    <td>{{$item->id}}</td>
+                    <td>{{$item->name}}</td>
+                    <td>$ {{$item->price}}</td>
+                    <td>{{$item->dateof}}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
       </div>
-  </div>
 
+      <div class="row mt-4">
+        <div class="card" style="width: 100%;">
+          <div class="card-header">
+            <h3>Top visited Cities</h3>
+            <p class="card-category">
+              a static Map that  describe the top cities visited
+            </p>
+          </div>
 
-
+          <div id="regions_div" style="width: 100%; height: 500px;"></div>
+        </div>
+      </div>
+  </div>  
+</div>
 
 
 
@@ -163,8 +198,7 @@
   
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-  
-        
+
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawVisualization);
 
@@ -193,8 +227,32 @@
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
-  </script>
 
+
+    google.charts.load('current', {
+    'packages':['geochart'],
+    // Note: you will need to get a mapsApiKey for your project.
+    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+    'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+  });
+  google.charts.setOnLoadCallback(drawRegionsMap);
+
+  function drawRegionsMap() {
+    var data = google.visualization.arrayToDataTable([
+      ['Country', 'visited'],
+      @foreach($topCitisVisited as $tc )
+        ['{{$tc->name}}' , {{$tc->numberOfBooking}}],
+      @endforeach
+    ]);
+
+    var options = {};
+    options['colorAxis'] = { minValue : 1, maxValue : 20, colors : ['#59D05D', '#4D7CFE']};
+
+    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+    chart.draw(data, options);
+  }
+  </script>
 
 
   @endsection

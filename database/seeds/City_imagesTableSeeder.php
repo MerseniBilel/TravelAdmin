@@ -12,6 +12,6 @@ class City_imagesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(CityImage::class, 80)->create();
+        factory(CityImage::class, 40)->create();
     }
 }

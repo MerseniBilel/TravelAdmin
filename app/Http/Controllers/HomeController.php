@@ -38,17 +38,24 @@ class HomeController extends Controller
         $city   = new CityController;
 
 
+
         $cityNumber = $city->getCityNumber();
         $hotelNumber = $hotel->getHotelNumber();
         $ActivityNumber = $activity->getActivityNumber();
         $bookingNumber =  $booking->getBookingNumber();
-
+        $topcitiesVisited =  $booking->getMapinfo();
+        $ourBalance = $booking->getBalance();
+        $allbookings = $booking->allBookingInfo();
+        
         return view('adminpanelcenter.dashboard',[
             'bookingNumber' => $bookingNumber,
             'hotelNumber' => $hotelNumber,
             'cityNumber' => $cityNumber,
             'activityNumber' => $ActivityNumber,
-            'googlechartBookings' => $googlechartBookings
+            'googlechartBookings' => $googlechartBookings,
+            'topCitisVisited' => $topcitiesVisited,
+            'ourbalance' => $ourBalance,
+            'allbookings' => $allbookings,
         ]);
 
        
