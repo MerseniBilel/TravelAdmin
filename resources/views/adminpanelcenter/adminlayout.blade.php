@@ -76,19 +76,19 @@
             </div>
             <ul class="nav">
                 <li class="nav-item active">
-                    <a href="#">
+                <a href="{{route('cities.index')}}">
                         <i class="fas fa-city"></i>
                         <p>cities</p>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#">
+                    <a href="{{route('activities.index')}}">
                         <i class="fas fa-skating"></i>
                         <p>Activities</p>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#">
+                    <a href="{{route('hotels.index')}}">
                         <i class="fas fa-hotel"></i>
                         <p>Hotels</p>
                     </a>
@@ -128,15 +128,19 @@
         </div>
     </footer>
 </body>
+
 <script src="{{asset('/dashoardassets/js/core/jquery.3.2.1.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/core/popper.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/core/bootstrap.min.js')}}"></script>
+<script src="{{asset('/dashoardassets/js/plugin/chartist/chartist.min.js')}}"></script>
+<script src="{{asset('/dashoardassets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js')}}"></script>
+<script src="{{asset('/dashoardassets/js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/plugin/jquery-mapael/jquery.mapael.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/plugin/jquery-mapael/maps/world_countries.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/plugin/chart-circle/circles.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
 <script src="{{asset('/dashoardassets/js/ready.min.js')}}"></script>
-<script src="{{asset('/dashoardassets/js/demo.js')}}"></script>
+
 </html>
