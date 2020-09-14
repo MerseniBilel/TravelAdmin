@@ -16,8 +16,6 @@ Route::get('/','HomeController@index')->name('dashboard');;
 Auth::routes();
 Route::resource('cities', 'CityController');
 Route::resource('hotels', 'HotelController');
-Route::resource('activities', 'ActivityController');
-Route::resource('cityimages', 'CityImageController');
-Route::resource('hotelimages', 'HotelImageController');
+Route::resource('home', 'HomeController');
 
 

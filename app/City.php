@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    public function activity()
-    {
-        return $this->hasMany('App\Activity');
-    }
+
+    protected $guarded = [];
+
 
     public function hotel()
     {
@@ -17,8 +16,4 @@ class City extends Model
     }
 
 
-    public function cityimage()
-    {
-        return $this->hasMany('App\CityImage');
-    }
 }

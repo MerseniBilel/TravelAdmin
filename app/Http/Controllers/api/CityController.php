@@ -18,6 +18,7 @@ class CityController extends Controller
         return City::all();
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +38,7 @@ class CityController extends Controller
      */
     public function show(City $city)
     {
-        //
+        return City::findOrFail($city->id);
     }
 
     /**

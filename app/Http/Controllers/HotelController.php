@@ -12,6 +12,13 @@ class HotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getall(){
+        return DB::table('hotels')
+                    ->orderBy('id', 'desc')
+                    ->get();
+    }
+
     public function index()
     {
         //
@@ -27,6 +34,20 @@ class HotelController extends Controller
         //
     }
 
+
+    public function validationRules(){
+        return [
+            'name' => 'required',
+            'address' => 'required',
+            'price' => 'required',
+            'rating' => 'required',
+            'description' => 'required',
+            'image' => 'required|image',
+            'city' => 'required',
+        ];
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +56,19 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedata = $request->validate($this->validationRules());
+        $hotel  = new Hotel;
+        $hotel->name = $request->name;
+        $hotel->description = $request->description;
+        $hotel->imageurl = $request->file('image')->store('uploads' , 'public');
+        $hotel->price = $request->price;
+        $hotel->address = $request->address;
+        $hotel->rating = $request->rating;
+        $hotel->city_id = $request->city;
+        $hotel->save();
+        return redirect()->back()->with('hotelAdded' , 'hotel ADDED successfully');
+        
+
     }
 
     /**
@@ -57,7 +90,16 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        //
+        $city = new CityController;
+        $allcities = $city->getall();
+        $cityOfHotel =  DB::table('cities')
+                        ->where('id', '=', $hotel->city_id)
+                        ->get();
+        return view('adminpanelcenter.edithotel',[
+            'hotel' => $hotel,
+            'cities' => $allcities,
+            'cityofhotel' => $cityOfHotel,
+        ]);
     }
 
     /**
@@ -69,7 +111,32 @@ class HotelController extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
-        //
+        if($request->file('image') == null){
+            $hotel->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'rating' => $request->rating,
+                'city_id' => $request->city,
+                'address' => $request->address,
+                'updated_at' => now(),
+            ]);
+            
+        }else{
+            $hotel->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'rating' => $request->rating,
+                'city_id' => $request->city,
+                'address' => $request->address,
+                'imageurl' => $request->file('image')->store('uploads' , 'public'),
+                'updated_at' => now(),
+            ]);
+        }
+
+        return redirect()->back()->with('hotelupdate', 'hotel UPDATED successfully');
+            
     }
 
     /**
@@ -80,7 +147,9 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete();
+        return redirect()->back()->with('hoteldeleted' , 'hotel DELETED successfully');
+
     }
 
 

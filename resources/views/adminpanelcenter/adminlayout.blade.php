@@ -66,7 +66,7 @@
                     <img src="http://lorempixel.com/400/400/city/">
                 </div>
                 <div class="info">
-                    <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                <a class="" data-toggle="collapse" href="{{route('home.index')}}" aria-expanded="true">
                         <span>
                             {{Auth::user()->name}}
                             <span class="user-level">Administrator</span>
@@ -79,12 +79,6 @@
                 <a href="{{route('cities.index')}}">
                         <i class="fas fa-city"></i>
                         <p>cities</p>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a href="{{route('activities.index')}}">
-                        <i class="fas fa-skating"></i>
-                        <p>Activities</p>
                     </a>
                 </li>
                 <li class="nav-item active">

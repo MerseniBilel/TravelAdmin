@@ -13,6 +13,7 @@ $factory->define(Hotel::class, function (Faker $faker) {
         'rating'=> $faker->numberBetween($min = 1, $max = 5),
         'address' => $faker->address,
         'price' => $faker->numberBetween($min = 100, $max = 900),
+        'imageurl' => $faker->imageUrl($width = 500, $height = 500, 'city'),
         'city_id' => City::get('id')->random(),
         'created_at' => now(),
         'updated_at' => now(),

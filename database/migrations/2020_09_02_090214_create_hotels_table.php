@@ -20,6 +20,7 @@ class CreateHotelsTable extends Migration
             $table->integer('rating')->unsigned();
             $table->integer('price')->unsigned();
             $table->string('address');
+            $table->string('imageurl');
             $table->unsignedBigInteger('city_id');
             $table->timestamps();
 

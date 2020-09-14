@@ -13,6 +13,14 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function getall(){
+        return DB::table('cities')
+                        ->orderBy('id', 'desc')
+                        ->get();
+    }
+
     public function index()
     {
         
@@ -33,6 +41,15 @@ class CityController extends Controller
         
     }
 
+
+
+    public function validationRules(){
+        return [
+            'country' => 'required',
+            'description' => 'required',
+            'image' => 'required|image',
+        ];
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -41,35 +58,22 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedata = $request->validate($this->validationRules());
         $test = DB::table('cities')->where('name' , $request->country)->get();
         if($test->count()){
 
             return redirect()->back()->with('citynotadded' , 'city is already found ... check the table below for more details');
         
         }else{
-            $images=array();
-            if($files=$request->file('images')){                
-                $city = new City;
-                $city->name= $request->country ;
-                $city->description = $request->description ;
-                $city->created_at = now();
-                $city->updated_at = now();
-                $city->save();
-                foreach($files as $file){
-                    $cityimage = new CityImage;
-                    $cityimage->imageurl = $file->store('uploads' , 'public');
-                    $cityimage->city_id = $city->id;
-                    $cityimage->created_at = now();
-                    $cityimage->updated_at = now();
-                    $cityimage->save();
-                }
- 
+            $city = new City;
+            $city->name= $request->country ;
+            $city->description = $request->description ;
+            $city->imageurl = $request->file('image')->store('uploads' , 'public');
+            $city->created_at = now();
+            $city->updated_at = now();
+            $city->save();
+            return redirect()->back()->with('cityadded' , 'city ADDED successfully');
         }
-
-            return redirect()->back()->with('addcity' , 'city added successfullylly');
-        }
-
-        
 
     }
    
@@ -82,11 +86,7 @@ class CityController extends Controller
      */
     public function show(City $city)
     {   
-        $images = DB::table('city_images')->where('city_id', $city->id)->get();
-        return view('adminpanelcenter/cityDetails', [
-            'city' => $city,
-            'images' => $images,
-        ]);
+
     }
 
     /**
@@ -97,7 +97,9 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-        // 
+        return view('adminpanelcenter/editcity', [
+            'city' => $city,
+        ]); 
     }
 
     /**
@@ -107,9 +109,25 @@ class CityController extends Controller
      * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
-    {
-        //
+    public function update(Request $request, City $city){
+
+        if($request->file('image') == null){
+            $city->update([
+                'name' => $request->country,
+                'description' => $request->description,
+                'updated_at' => now(),
+            ]);
+            
+        }else{
+            $city->update([
+                'name' => $request->country,
+                'description' => $request->description,
+                'updated_at' => now(),
+                'imageurl' => $request->file('image')->store('uploads' , 'public'),
+            ]);
+        }
+
+        return redirect()->back()->with('cityupdated', 'city UPDATED successfully');
     }
 
     /**
@@ -120,7 +138,9 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+
+        $city->delete();
+        return redirect()->back()->with('citydeleted', 'city DELETED successfully');
     }
 
 
