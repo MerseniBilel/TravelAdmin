@@ -87,7 +87,7 @@ class BookingController extends Controller
 
 
     public function allBookingInfo(){
-        return DB::select('SELECT bookings.id as id ,bookings.name as name ,bookings.created_at as dateof,  hotels.price as price FROM bookings JOIN hotels ON bookings.hotel_id = hotels.id LIMIT 13');
+        return DB::select('SELECT bookings.id as id , bookings.email ,bookings.created_at as dateof,  hotels.price as price FROM bookings JOIN hotels ON bookings.hotel_id = hotels.id LIMIT 13');
     }
 
     public function getBookingNumber(){

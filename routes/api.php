@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::apiResource('cities', 'Api\CityController');
+Route::apiResource('hotels', 'Api\HotelController');
+Route::apiResource('bookings', 'Api\BookingController');

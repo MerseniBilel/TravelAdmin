@@ -16,12 +16,9 @@ class CreateBookingsTable extends Migration
         
         Schema::create('bookings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('phone');
             $table->string('email');
-            $table->string('creditcardtype');
             $table->string('creditcard');
+            $table->integer('cvv')->unsigned();
             $table->string('expirationdate');
             $table->unsignedBigInteger('hotel_id');
             $table->timestamps();
