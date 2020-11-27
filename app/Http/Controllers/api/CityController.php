@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
-
+use DB;
 use App\City;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,7 +38,12 @@ class CityController extends Controller
      */
     public function show(City $city)
     {
-        return City::findOrFail($city->id);
+        $users = DB::table('cities')
+        ->join('hotels', 'cities.id', '=', 'hotels.city_id')
+        ->select('hotels.*')->where('cities.id' ,'=', $city->id)
+        ->get();
+
+        return $users;
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Booking;
+use App\Mail\VerificationMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
@@ -37,6 +39,8 @@ class BookingController extends Controller
         $data->updated_at = now();
 
         $booking = $data->save();
+
+        Mail::to('bilelmerseni@test.com')->send(new VerificationMail());
 
          return response()->json($booking, 201);
     }
